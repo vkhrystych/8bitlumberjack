@@ -15,7 +15,7 @@ export default function App() {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
 
-  const onAppKeyDown = (e) => {
+  const onAppKeyDown = (side) => {
     if (!gameOver) {
       const currentChunk = treeData[treeData.length - 1];
 
@@ -31,8 +31,7 @@ export default function App() {
         }
       };
 
-      if (e.key === "ArrowLeft") checkIsRightChop("left");
-      if (e.key === "ArrowRight") checkIsRightChop("right");
+      checkIsRightChop(side);
     }
   };
 
@@ -43,7 +42,11 @@ export default function App() {
           <Text style={styles.scoreText}>Score: {score}</Text>
         </View>
 
-        {gameOver ? <Text>Game over</Text> : <Tree treeData={treeData} />}
+        {gameOver ? (
+          <Text>Game over</Text>
+        ) : (
+          <Tree treeData={treeData} onLumberJackClick={onAppKeyDown} />
+        )}
       </SafeAreaView>
     </View>
   );

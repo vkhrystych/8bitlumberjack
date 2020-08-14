@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-export default ({ treeData }) => {
+export default ({ treeData, onLumberJackClick }) => {
+  const lastChunkSide = treeData[treeData.length - 1].side;
+
   return (
     <View style={styles.treeContainer}>
       {treeData.map((tree, treeIndex) => {
@@ -18,20 +20,23 @@ export default ({ treeData }) => {
           </View>
         );
       })}
+
+      <TouchableOpacity
+        style={{
+          ...styles.lumberjack,
+          left: lastChunkSide === "left" ? 50 : 310,
+        }}
+        onPress={() => onLumberJackClick("right")}
+      ></TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   treeContainer: {
     height: "100%",
     display: "flex",
+    position: "relative",
     alignItems: "center",
     flexDirection: "column",
     justifyContent: "flex-end",
@@ -39,5 +44,13 @@ const styles = StyleSheet.create({
   tree: {
     width: 120,
     flex: 1,
+    marginBottom: 1,
+  },
+  lumberjack: {
+    position: "absolute",
+    bottom: 0,
+    width: 50,
+    height: 200,
+    backgroundColor: "red",
   },
 });
