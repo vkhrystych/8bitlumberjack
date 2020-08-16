@@ -5,6 +5,8 @@ import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Tree from "./components/Tree";
 import ChopBtns from "./components/ChopBtns";
 
+import { generateBoolean } from "./utils";
+
 export default function App() {
   const [treeData, setTreeData] = useState([
     { side: "left" },
@@ -25,6 +27,11 @@ export default function App() {
         if (currentChunk.side === side) {
           const treeDataCopy = [...treeData];
           treeDataCopy.pop();
+
+          treeDataCopy.push({
+            side: generateBoolean() ? "left" : "right",
+          });
+
           setTreeData(treeDataCopy);
 
           setScore(score + 1);
