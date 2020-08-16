@@ -26,7 +26,6 @@ export default ({ treeData, onLumberJackClick }) => {
           ...styles.lumberjack,
           left: lastChunkSide === "left" ? 50 : 310,
         }}
-        onPress={() => onLumberJackClick("right")}
       ></TouchableOpacity>
     </View>
   );
@@ -34,6 +33,7 @@ export default ({ treeData, onLumberJackClick }) => {
 
 const styles = StyleSheet.create({
   treeContainer: {
+    zIndex: 0,
     height: "100%",
     display: "flex",
     position: "relative",

@@ -1,7 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+
 import Tree from "./components/Tree";
+import ChopBtns from "./components/ChopBtns";
 
 export default function App() {
   const [treeData, setTreeData] = useState([
@@ -45,7 +47,11 @@ export default function App() {
         {gameOver ? (
           <Text>Game over</Text>
         ) : (
-          <Tree treeData={treeData} onLumberJackClick={onAppKeyDown} />
+          <>
+            <ChopBtns onPress={onAppKeyDown} />
+
+            <Tree treeData={treeData} />
+          </>
         )}
       </SafeAreaView>
     </View>
