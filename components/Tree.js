@@ -2,7 +2,9 @@ import React, { useState } from "react";
 
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-export default ({ treeData, onLumberJackClick }) => {
+export default ({ treeData }) => {
+  if (!treeData.length) return null;
+
   const lastChunkSide = treeData[treeData.length - 1].side;
 
   return (

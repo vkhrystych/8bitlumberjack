@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import Tree from "./components/Tree";
@@ -8,16 +7,25 @@ import ChopBtns from "./components/ChopBtns";
 import { generateBoolean } from "./utils";
 
 export default function App() {
-  const [treeData, setTreeData] = useState([
-    { side: "left" },
-    { side: "right" },
-    { side: "left" },
-    { side: "right" },
-    { side: "right" },
-  ]);
-
-  const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
+  const [treeData, setTreeData] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
+
+  useEffect(() => {
+    initializeTreeDate();
+  }, []);
+
+  const initializeTreeDate = () => {
+    const newTreeData = [];
+
+    for (let i = 0; i <= 4; i++) {
+      newTreeData.push({
+        side: generateBoolean() ? "left" : "right",
+      });
+    }
+
+    setTreeData(newTreeData);
+  };
 
   const onAppKeyDown = (side) => {
     if (!gameOver) {
@@ -28,7 +36,7 @@ export default function App() {
           const treeDataCopy = [...treeData];
           treeDataCopy.pop();
 
-          treeDataCopy.push({
+          treeDataCopy.unshift({
             side: generateBoolean() ? "left" : "right",
           });
 
@@ -42,6 +50,12 @@ export default function App() {
 
       checkIsRightChop(side);
     }
+  };
+
+  const startAgain = () => {
+    setScore(0);
+    setGameOver(false);
+    initializeTreeDate();
   };
 
   return (
