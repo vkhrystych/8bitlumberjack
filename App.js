@@ -3,6 +3,7 @@ import { Audio } from "expo-av";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import Tree from "./components/Tree";
+import GameOver from "./screens/GameOver";
 import ChopBtns from "./components/ChopBtns";
 
 import { generateBoolean } from "./utils";
@@ -39,7 +40,7 @@ export default function App() {
 
         // Don't forget to unload the sound from memory
         // when you are done using the Sound object
-        await soundObject.unloadAsync();
+        // await soundObject.unloadAsync();
       } catch (error) {
         // An error occurred!
       }
@@ -81,7 +82,7 @@ export default function App() {
         </View>
 
         {gameOver ? (
-          <Text>Game over</Text>
+          <GameOver startAgain={startAgain} />
         ) : (
           <>
             <ChopBtns onPress={onAppKeyDown} />
