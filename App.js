@@ -6,7 +6,12 @@ import Tree from "./components/Tree";
 import GameOver from "./screens/GameOver";
 import ChopBtns from "./components/ChopBtns";
 
-import { generateBoolean } from "./utils";
+import { generateBoolean, getRandomInt } from "./utils";
+
+import chopSound1 from "./assets/sounds/chop/1.mp3";
+import chopSound2 from "./assets/sounds/chop/2.mp3";
+import chopSound3 from "./assets/sounds/chop/3.mp3";
+import chopSound4 from "./assets/sounds/chop/4.mp3";
 
 export default function App() {
   const [score, setScore] = useState(0);
@@ -31,11 +36,28 @@ export default function App() {
 
   const onAppKeyDown = async (side) => {
     if (!gameOver) {
-      const soundObject = new Audio.Sound();
+      const chopSoundObj1 = new Audio.Sound();
+      const chopSoundObj2 = new Audio.Sound();
+      const chopSoundObj3 = new Audio.Sound();
+      const chopSoundObj4 = new Audio.Sound();
 
       try {
-        await soundObject.loadAsync(require("./assets/dog.wav"));
-        await soundObject.playAsync();
+        // first of all load sounds
+        await chopSoundObj1.loadAsync(chopSound1);
+        await chopSoundObj2.loadAsync(chopSound2);
+        await chopSoundObj3.loadAsync(chopSound3);
+        await chopSoundObj4.loadAsync(chopSound4);
+
+        const chopsArr = [
+          chopSoundObj1,
+          chopSoundObj2,
+          chopSoundObj3,
+          chopSoundObj4,
+        ];
+
+        const randomSoundIndex = getRandomInt(0, 3);
+
+        await chopsArr[randomSoundIndex].playAsync();
         // Your sound is playing!
 
         // Don't forget to unload the sound from memory
