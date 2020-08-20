@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Audio } from "expo-av";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 
 import Tree from "./components/Tree";
@@ -27,8 +28,22 @@ export default function App() {
     setTreeData(newTreeData);
   };
 
-  const onAppKeyDown = (side) => {
+  const onAppKeyDown = async (side) => {
     if (!gameOver) {
+      const soundObject = new Audio.Sound();
+
+      try {
+        await soundObject.loadAsync(require("./assets/dog.wav"));
+        await soundObject.playAsync();
+        // Your sound is playing!
+
+        // Don't forget to unload the sound from memory
+        // when you are done using the Sound object
+        await soundObject.unloadAsync();
+      } catch (error) {
+        // An error occurred!
+      }
+
       const currentChunk = treeData[treeData.length - 1];
 
       const checkIsRightChop = (side) => {
